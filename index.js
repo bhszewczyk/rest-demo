@@ -29,6 +29,14 @@ app.get('/comments/new', (req, res) => {
 	res.render('comments/new');
 });
 
+// POST /comments - display all coments with a new one
+app.post('/comments', (req, res) => {
+	const { username, comment } = req.body;
+	comments.push({ username, comment });
+	// redirect right to where the comments are
+	res.redirect('/comments');
+});
+
 app.listen(PORT, () => {
 	console.log(`On port ${PORT}`);
 });
