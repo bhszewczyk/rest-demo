@@ -45,6 +45,10 @@ app.get('/comments/:id', (req, res) => {
 	const { id } = req.params;
 	console.log(id);
 	const comment = comments.find((comment) => comment.id === parseInt(id));
+
+	if (!comment) {
+		res.render('comments/notfound', { id });
+	}
 	res.render('comments/show', { comment });
 });
 
