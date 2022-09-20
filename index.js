@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const path = require('path');
+const { v4: getUuid } = require('uuid');
 
 // parse requests included in the body of the request
 app.use(express.urlencoded({ extended: true }));
@@ -17,10 +18,14 @@ app.get('/', (req, res) => {
 });
 
 const comments = [
-	{ id: 1, username: 'Ponyo', comment: 'Peew peew' },
-	{ id: 2, username: 'Ida', comment: 'Grrr, woof woof. AWOOOOOOOO!' },
-	{ id: 3, username: 'Eevee', comment: 'Mmmmmba' },
-	{ id: 4, username: 'Volo', comment: 'Woof woof, wo wo wo woooooooof!' },
+	{ id: getUuid(), username: 'Ponyo', comment: 'Peew peew' },
+	{ id: getUuid(), username: 'Ida', comment: 'Grrr, woof woof. AWOOOOOOOO!' },
+	{ id: getUuid(), username: 'Eevee', comment: 'Mmmmmba' },
+	{
+		id: getUuid(),
+		username: 'Volo',
+		comment: 'Woof woof, wo wo wo woooooooof!',
+	},
 ];
 
 // GET /comments - list all comments
@@ -36,7 +41,7 @@ app.get('/comments/new', (req, res) => {
 // POST /comments - display all coments with a new one
 app.post('/comments', (req, res) => {
 	const { username, comment } = req.body;
-	comments.push({ username, comment });
+	comments.push({ username, comment, id: getUuid() });
 	// redirect right to where the comments are
 	res.redirect('/comments');
 });
@@ -44,7 +49,7 @@ app.post('/comments', (req, res) => {
 app.get('/comments/:id', (req, res) => {
 	const { id } = req.params;
 	console.log(id);
-	const comment = comments.find((comment) => comment.id === parseInt(id));
+	const comment = comments.find((comment) => comment.id === id);
 
 	if (!comment) {
 		res.render('comments/notfound', { id });
