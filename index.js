@@ -17,10 +17,10 @@ app.get('/', (req, res) => {
 });
 
 const comments = [
-	{ username: 'Ponyo', comment: 'Peew peew' },
-	{ username: 'Ida', comment: 'Grrr, woof woof. AWOOOOOOOO!' },
-	{ username: 'Eevee', comment: 'Mmmmmba' },
-	{ username: 'Volo', comment: 'Woof woof, wo wo wo woooooooof!' },
+	{ id: 1, username: 'Ponyo', comment: 'Peew peew' },
+	{ id: 2, username: 'Ida', comment: 'Grrr, woof woof. AWOOOOOOOO!' },
+	{ id: 3, username: 'Eevee', comment: 'Mmmmmba' },
+	{ id: 4, username: 'Volo', comment: 'Woof woof, wo wo wo woooooooof!' },
 ];
 
 // GET /comments - list all comments
@@ -39,6 +39,13 @@ app.post('/comments', (req, res) => {
 	comments.push({ username, comment });
 	// redirect right to where the comments are
 	res.redirect('/comments');
+});
+
+app.get('/comments/:id', (req, res) => {
+	const { id } = req.params;
+	console.log(id);
+	const comment = comments.find((comment) => comment.id === parseInt(id));
+	res.render('comments/show', { comment });
 });
 
 app.listen(PORT, () => {
