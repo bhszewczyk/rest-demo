@@ -19,19 +19,14 @@ const comments = [
 	{ username: 'Volo', comment: 'Woof woof, wo wo wo woooooooof!' },
 ];
 
+// GET /comments - list all comments
 app.get('/comments', (req, res) => {
 	res.render('comments/index', { comments });
 });
 
-app.get('/pizza', (req, res) => {
-	res.send('Here is the GET /pizza response');
-});
-
-app.post('/pizza', (req, res) => {
-	const { meal, qty } = req.body;
-	res.send(
-		`Here is the POST /pizza response. You have ordered ${qty} ${meal}(s)`
-	);
+// GET /comments/new - create a new comment
+app.get('/comments/new', (req, res) => {
+	res.render('comments/new');
 });
 
 app.listen(PORT, () => {
