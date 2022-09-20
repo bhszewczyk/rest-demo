@@ -12,6 +12,10 @@ app.set('views', path.join(__dirname, 'views'));
 // set up engine as EJS
 app.set('view engine', 'ejs');
 
+app.get('/', (req, res) => {
+	res.render('home');
+});
+
 const comments = [
 	{ username: 'Ponyo', comment: 'Peew peew' },
 	{ username: 'Ida', comment: 'Grrr, woof woof. AWOOOOOOOO!' },
