@@ -12,6 +12,13 @@ app.set('views', path.joine(__dirname, 'views'));
 // set up engine as EJS
 app.set('view engine', 'ejs');
 
+const comments = [
+	{ username: 'Ponyo', comment: 'Peew peew' },
+	{ username: 'Ida', comment: 'Grrr, woof woof. AWOOOOOOOO!' },
+	{ username: 'Eevee', comment: 'Mmmmmba' },
+	{ username: 'Volo', comment: 'Woof woof, wo wo wo woooooooof!' },
+];
+
 app.get('/pizza', (req, res) => {
 	res.send('Here is the GET /pizza response');
 });
