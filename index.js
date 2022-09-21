@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 	res.render('home');
 });
 
-const comments = [
+let comments = [
 	{ id: getUuid(), username: 'Ponyo', comment: 'Peew peew' },
 	{ id: getUuid(), username: 'Ida', comment: 'Grrr, woof woof. AWOOOOOOOO!' },
 	{ id: getUuid(), username: 'Eevee', comment: 'Mmmmmba' },
@@ -79,6 +79,12 @@ app.patch('/comments/:id', (req, res) => {
 		res.render('comments/notfound', { id });
 	}
 	existingComment.comment = newComment;
+	res.redirect('/comments');
+});
+
+app.delete('/comments/:id', (req, res) => {
+	const { id } = req.params;
+	comments = comments.filter((comment) => comment.id !== id);
 	res.redirect('/comments');
 });
 
